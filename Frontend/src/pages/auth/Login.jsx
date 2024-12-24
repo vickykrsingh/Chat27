@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 
@@ -27,6 +27,12 @@ export default function Login() {
       toast.error(error.response.data.message)
     }
   };
+
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  },[])
 
   return (
     <main className="w-full h-[92vh] flex items-center justify-center">
