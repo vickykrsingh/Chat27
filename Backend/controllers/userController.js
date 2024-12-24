@@ -1,3 +1,4 @@
+import mongoose, { Types } from 'mongoose';
 import User from '../models/user.model.js'
 import jwt from 'jsonwebtoken'
 
@@ -100,6 +101,30 @@ export const logout = async (req,res) => {
         return res.status(500).json({
             success:false,
             message:"Server error"
+        })
+    }
+}
+
+export const getAllUsers = async (req,res) => {
+    const userId = new mongoose.Types.ObjectId(req.user._id)
+    console.log(userId)
+    try {
+        if(!userId){
+            return res.status(400).json({
+                success:false,
+                message:"Something went wrong"
+            })
+        }
+        const allUsers = await User.find({_id:{$ne:userId}});
+        return res.status(200).json({
+            success:true,
+            users:allUsers
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Server error",
+            error:error.message
         })
     }
 }

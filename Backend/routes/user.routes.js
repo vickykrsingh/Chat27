@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { loginController, logout, registerController } from '../controllers/userController.js';
+import { getAllUsers, loginController, logout, registerController } from '../controllers/userController.js';
 import { isLoggedIn } from '../middleware/auth.middleware.js';
 
 const router = Router();
@@ -13,4 +13,5 @@ router.post('/seetings',isLoggedIn,(req,res)=>{
     })
 })
 router.get('/logout',logout);
+router.get('/get-all-users',isLoggedIn,getAllUsers)
 export default router

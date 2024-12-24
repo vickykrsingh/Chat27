@@ -1,7 +1,9 @@
 import axios from "axios";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Register() {
   const {
@@ -9,6 +11,7 @@ export default function Register() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const {user,setUser} = useContext(AuthContext)
   const navigate = useNavigate()
   const onSubmit = async (userData) => {
     try {
@@ -21,6 +24,12 @@ export default function Register() {
       toast.error(error.response.data.message)
     }
   };
+
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  },[])
 
   return (
     <main className="w-full h-[92vh] flex items-center justify-center">
