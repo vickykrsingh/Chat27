@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 
 export default function Login() {
   const {
@@ -10,11 +13,14 @@ export default function Login() {
     handleSubmit,
   } = useForm();
   const navigate = useNavigate()
+  const {user,setUser} = useContext(AuthContext)
   const onSubmit = async (userData) => {
     try {
         const {data} = await axios.post(`/auth/login`,userData);
         if(data.success){
             toast.success(data.message)
+            localStorage.setItem('user',JSON.stringify(data.user||null))
+            setUser(data.user||null)
             navigate('/')
         }
     } catch (error) {
