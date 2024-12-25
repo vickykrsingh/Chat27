@@ -4,8 +4,9 @@ import Search from './Search'
 import { UsersContext } from '../../context/UsersContext'
 import toast from 'react-hot-toast'
 import axios, { all } from 'axios'
+import { useParams } from 'react-router-dom'
 
-function Left() {
+function Left({currentActiveUser}) {
   const {allUsers,setAllUsers,loading,setLoading} = useContext(UsersContext)
 
   useEffect(()=>{
@@ -32,10 +33,10 @@ function Left() {
       <section className='h-[85vh] overflow-y-scroll'>
         {
           allUsers.length>0 || loading ? allUsers.map((user)=>{
-            return <Users key={user._id} user={user} />
+            return <Users currentActiveUser={currentActiveUser} key={user._id} user={user} />
           }) : <div className='w-full h-full flex items-center justify-center'>
             <img className='w-20 h-20' src='/loader.svg' alt='loading...'/>
-          // </div>
+          </div>
         }
       </section>
     </section>

@@ -58,7 +58,7 @@ export const getMessage = async (req, res) => {
       return res.json({
         success: false,
         message: "no conversation found",
-        data: [],
+        allMessages: [],
       });
     }
     const message = await conversation.message;

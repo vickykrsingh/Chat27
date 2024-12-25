@@ -1,9 +1,10 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
-function Users({user}) {
+function Users({user,currentActiveUser}) {
   return (
-    <section className=''>
-        <div className='flex items-center justify-between p-4 border-b border-gray-300'>
+    <Link to={`/${user._id}`} className=''>
+        <div className={`flex items-center justify-between p-4 border-b border-gray-300 ${currentActiveUser==user._id ? 'bg-slate-600':''}`}>
             <div className='flex items-center space-x-4'>
             <img src='/dummyAvatar.avif' alt='user' className='w-12 h-12 rounded-full'/>
             <div>
@@ -13,9 +14,8 @@ function Users({user}) {
                 </p>
             </div>
             </div>
-            <button className='bg-blue-500 text-white px-4 py-2 rounded'>Follow</button>
         </div>
-    </section>
+    </Link>
   )
 }
 

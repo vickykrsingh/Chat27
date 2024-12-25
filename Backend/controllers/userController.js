@@ -39,6 +39,7 @@ export const loginController = async (req,res) => {
             user:{
                 name:existingUser.name,
                 email:existingUser.email,
+                _id:existingUser._id
             }
         })
     } catch (error) {
@@ -125,6 +126,35 @@ export const getAllUsers = async (req,res) => {
             success:false,
             message:"Server error",
             error:error.message
+        })
+    }
+}
+
+export const getUserById = async (req,res) => {
+    const id = req.params.id;
+    if(!id){
+        return res.status(400).json({
+            success:false,
+            message:"Id is required",
+            user:null
+        })
+    }
+    try {
+        const currentUser = await User.findById(id);
+        return res.status(200).json({
+            success:true,
+            message:"User fetched successfully",
+            user:{
+                name:currentUser.name,
+                email:currentUser.email,
+                _id:currentUser._id
+            }
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Server error",
+            user:null
         })
     }
 }
