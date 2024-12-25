@@ -1,9 +1,11 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import userRoutes from './routes/user.routes.js'
+import messageRoutes from './routes/message.route.js'
 import db from './utils/db.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+
 const app = express()
 dotenv.config()
 app.use(express.json()) // middleware to parse body 
@@ -16,6 +18,7 @@ db()
 
 // routes middleware
 app.use('/api/auth',userRoutes)
+app.use('/api/message',messageRoutes)
 
 
 app.listen(8080,()=>{
