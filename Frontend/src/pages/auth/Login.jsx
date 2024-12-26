@@ -17,7 +17,6 @@ export default function Login() {
   const onSubmit = async (userData) => {
     try {
         const {data} = await axios.post(`/auth/login`,userData);
-        console.log(data,'login data')
         if(data.success){
             toast.success(data.message)
             localStorage.setItem('user',JSON.stringify(data.user||null))
