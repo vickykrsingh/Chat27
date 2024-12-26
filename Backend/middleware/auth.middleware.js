@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken'
 export const isLoggedIn = async (req,res,next) => {
     try {
         const token = req.cookies.token;
-        console.log(token)
         if(!token){
             req.user = null
             return res.status(500).json({
@@ -20,7 +19,6 @@ export const isLoggedIn = async (req,res,next) => {
         req.user = user;
         next()
     } catch (error) {
-        console.log(error);
         req.user=null
         return res.status(500).json({
             success:false,

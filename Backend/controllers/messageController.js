@@ -13,7 +13,6 @@ export const sendMessage = async (req, res) => {
 
     //if conversation is doesn't exists create conversation
     if (!conversation) {
-      console.log("enter 3");
       conversation = await conversationModel.create({
         participants: [senderId, receiverId],
       });
@@ -34,7 +33,6 @@ export const sendMessage = async (req, res) => {
       newMessage: newMessage,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: "Server error",
@@ -45,14 +43,11 @@ export const sendMessage = async (req, res) => {
 export const getMessage = async (req, res) => {
   const senderId = req.user._id;
   const receiverId = req.params.id;
-  console.log('sender id - ',senderId)
-  console.log('receiver id - ',receiverId)
   try {
     // check wheater conversation is exists or not
     let conversation = await conversationModel
       .findOne({ participants: { $all: [senderId, receiverId] } })
       .populate("message");
-    console.log(conversation)
     // if conversation doesn't exists create a new conversation
     if (!conversation) {
       return res.json({

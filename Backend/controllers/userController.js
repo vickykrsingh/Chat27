@@ -12,7 +12,6 @@ export const loginController = async (req,res) => {
             })
         }
         const existingUser = await User.findOne({email}).select("+password");
-        console.log(existingUser)
         if(!existingUser){
             return res.status(400).json({
                 success:false,
@@ -43,7 +42,6 @@ export const loginController = async (req,res) => {
             }
         })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             success:false,
             message:"Server error"
@@ -60,7 +58,6 @@ export const registerController = async (req,res) => {
                 message:"All fields are required"
             })
         }
-        console.log(name,email,password)
         const existingUser = await User.findOne({email});
         if(existingUser){
             return res.status(300).json({
@@ -78,7 +75,6 @@ export const registerController = async (req,res) => {
             message:"Registration successfully"
         })
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             success:false,
             message:'Server error'
@@ -108,7 +104,6 @@ export const logout = async (req,res) => {
 
 export const getAllUsers = async (req,res) => {
     const userId = new mongoose.Types.ObjectId(req.user._id)
-    console.log(userId)
     try {
         if(!userId){
             return res.status(400).json({
