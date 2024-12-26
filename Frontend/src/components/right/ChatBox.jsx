@@ -3,28 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import {AuthContext} from '../../context/AuthContext.jsx'
 import moment from 'moment'
 import { SelectedChatContext } from "../../context/SelectedChat.jsx";
+import { MessageContext } from "../../context/MessageContext.jsx";
 function ChatBox() {
-  const [message, setMessage] = useState([]);
+  // const [message, setMessage] = useState([]);
+  const {message,setMessage} = useContext(MessageContext)
   const [showDate,setShowDate] = useState(false)
   const {user} = useContext(AuthContext)
-  const {selectedChat,selectedId} = useContext(SelectedChatContext)
-  const getMessage = async () => {
-    try {
-      const { data } = await axios.get(`/message/get-message/${selectedId}`);
-      if (data.success) {
-        setMessage((prev)=>prev=data.allMessages);
-      }else{
-        throw new Error("no conversation found")
-      }
-    } catch (error) {
-      setMessage((prev)=>prev=[]);
-    }
-  };
-  useEffect(() => {
-    if(selectedId){
-      getMessage();
-    }
-  }, [selectedId]);
+  const {selectedChat} = useContext(SelectedChatContext)
+  
   return (
     <section className="h-[75vh] bg-slate-800 py-2 px-1 overflow-y-scroll">
       {user&&Array.isArray(message) && message.length>0 ? message.map((msg) => {

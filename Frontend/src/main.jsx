@@ -7,14 +7,17 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import { UsersProvider } from "./context/UsersContext.jsx";
 import { SocketProvider } from "./context/SocketContext.jsx";
 import { SelectedChatProvider } from "./context/SelectedChat.jsx";
+import { MessageProvider } from "./context/MessageContext.jsx";
 createRoot(document.getElementById("root")).render(
   <Router>
     <AuthProvider>
       <UsersProvider>
         <SelectedChatProvider>
-        <SocketProvider>
-          <App />
-        </SocketProvider>
+          <SocketProvider>
+            <MessageProvider>
+              <App />
+            </MessageProvider>
+          </SocketProvider>
         </SelectedChatProvider>
       </UsersProvider>
     </AuthProvider>
