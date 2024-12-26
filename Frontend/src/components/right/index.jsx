@@ -20,7 +20,7 @@ function Right({id}) {
     fetchChatUser()
   },[id])
   return (
-    <section className='w-[70%] min-h-[92vh] bg-slate-600 text-gray-100'>
+    chatUser&&<section className='w-[70%] min-h-[92vh] bg-slate-600 text-gray-100'>
       <ChatBoxHead chatUser={chatUser} />
       <ChatBox id={id} chatUser={chatUser} />
       <MessageInput id={id} />

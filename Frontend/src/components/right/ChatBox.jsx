@@ -23,7 +23,7 @@ function ChatBox({ id,chatUser }) {
   }, [id]);
   return (
     <section className="h-[75vh] bg-slate-800 py-2 px-1 overflow-y-scroll">
-      {message.length>0 ? message.map((msg) => {
+      {Array.isArray(message) && message.length>0 ? message.map((msg) => {
         return (
           <div key={msg._id} className={`chat flex flex-col ${msg.sender===user._id ? 'chat-end':'chat-start'}`}>
             <div onClick={()=>setShowDate((prev)=>prev=!prev)} className={`chat-bubble cursor-pointer ${msg.sender===user._id ? 'chat-bubble-accent':'chat-bubble-success'}`}>
