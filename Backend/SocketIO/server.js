@@ -11,8 +11,12 @@ const io = new Server(server,{
         methods:['GET','POST','PUT','DELETE']
     }
 })
-
 const users = {}
+
+export const getReceiverSocketId = (receiverId) => {
+    return users[receiverId]
+}
+
 io.on('connection',(socket)=>{
     console.log("New client connected",socket.id)
 
