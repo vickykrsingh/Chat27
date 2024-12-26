@@ -1,13 +1,15 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
+import { SelectedChatContext } from '../../context/SelectedChat'
 
-function MessageInput({id}) {
+function MessageInput() {
   const [message,setMessage] = useState('')
+  const {selectedId} = useContext(SelectedChatContext)
   const handleSendMessage = async (e) => {
     e.preventDefault()
     try {
-      const {data} = await axios.post(`/message/send/${id}`,{message})
+      const {data} = await axios.post(`/message/send/${selectedId}`,{message})
       if(data.success){
         setMessage((prev)=>prev='')
       }else{

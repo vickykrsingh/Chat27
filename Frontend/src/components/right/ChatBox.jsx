@@ -2,13 +2,15 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import {AuthContext} from '../../context/AuthContext.jsx'
 import moment from 'moment'
-function ChatBox({ id,chatUser }) {
+import { SelectedChatContext } from "../../context/SelectedChat.jsx";
+function ChatBox() {
   const [message, setMessage] = useState([]);
   const [showDate,setShowDate] = useState(false)
-  const {user,setUser} = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
+  const {selectedChat,selectedId} = useContext(SelectedChatContext)
   const getMessage = async () => {
     try {
-      const { data } = await axios.get(`/message/get-message/${id}`);
+      const { data } = await axios.get(`/message/get-message/${selectedId}`);
       if (data.success) {
         setMessage((prev)=>prev=data.allMessages);
       }else{
@@ -19,13 +21,15 @@ function ChatBox({ id,chatUser }) {
     }
   };
   useEffect(() => {
-    getMessage();
-  }, [id]);
+    if(selectedId){
+      getMessage();
+    }
+  }, [selectedId]);
   return (
     <section className="h-[75vh] bg-slate-800 py-2 px-1 overflow-y-scroll">
-      {Array.isArray(message) && message.length>0 ? message.map((msg) => {
+      {user&&Array.isArray(message) && message.length>0 ? message.map((msg) => {
         return (
-          <div key={msg._id} className={`chat flex flex-col ${msg.sender===user._id ? 'chat-end':'chat-start'}`}>
+          <div key={msg._id} className={`chat flex flex-col ps-3 pe-3 ${msg.sender===user._id ? 'chat-end':'chat-start'}`}>
             <div onClick={()=>setShowDate((prev)=>prev=!prev)} className={`chat-bubble cursor-pointer ${msg.sender===user._id ? 'chat-bubble-accent':'chat-bubble-success'}`}>
               {msg.message}
             </div>
@@ -36,7 +40,7 @@ function ChatBox({ id,chatUser }) {
         );
       }) : <section className="w-full h-full flex items-center justify-center">
         <div className="text-2xl font-semibold opacity-50">
-          <p>Say hi👋 to {chatUser?.name}</p>
+          <p>Say hi👋 to {selectedChat?.name}</p>
         </div>
       </section>
     }

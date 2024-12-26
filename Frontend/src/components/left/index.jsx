@@ -6,9 +6,9 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 import { AuthContext } from '../../context/AuthContext'
 
-function Left({currentActiveUser}) {
+function Left() {
   const {allUsers,setAllUsers,loading,setLoading} = useContext(UsersContext)
-  const {user,setUser} = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
   useEffect(()=>{
     async function getAllUsers(){
       setLoading(true)
@@ -35,7 +35,7 @@ function Left({currentActiveUser}) {
       <section className='h-[85vh] overflow-y-scroll'>
         {
           Array.isArray(allUsers) && allUsers.length>0 || loading ? allUsers.map((user)=>{
-            return <Users currentActiveUser={currentActiveUser} key={user._id} user={user} />
+            return <Users key={user._id} user={user} />
           }) : <div className='w-full h-full flex items-center justify-center'>
             <img className='w-20 h-20' src='/loader.svg' alt='loading...'/>
           </div>

@@ -19,7 +19,6 @@ io.on('connection',(socket)=>{
     const userId = socket.handshake.query.userId;
     if(userId){
         users[userId] = socket.id;
-        console.log(users)
     }
 
     io.emit('getOnline',Object.keys(users))
