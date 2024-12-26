@@ -12,7 +12,6 @@ export const loginController = async (req,res) => {
             })
         }
         const existingUser = await User.findOne({email}).select("+password");
-        console.log(existingUser)
         if(!existingUser){
             return res.status(400).json({
                 success:false,
@@ -39,10 +38,10 @@ export const loginController = async (req,res) => {
             user:{
                 name:existingUser.name,
                 email:existingUser.email,
+                _id:existingUser._id
             }
         })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             success:false,
             message:"Server error"
@@ -59,7 +58,6 @@ export const registerController = async (req,res) => {
                 message:"All fields are required"
             })
         }
-        console.log(name,email,password)
         const existingUser = await User.findOne({email});
         if(existingUser){
             return res.status(300).json({
@@ -77,7 +75,6 @@ export const registerController = async (req,res) => {
             message:"Registration successfully"
         })
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             success:false,
             message:'Server error'
@@ -107,7 +104,6 @@ export const logout = async (req,res) => {
 
 export const getAllUsers = async (req,res) => {
     const userId = new mongoose.Types.ObjectId(req.user._id)
-    console.log(userId)
     try {
         if(!userId){
             return res.status(400).json({
@@ -125,6 +121,35 @@ export const getAllUsers = async (req,res) => {
             success:false,
             message:"Server error",
             error:error.message
+        })
+    }
+}
+
+export const getUserById = async (req,res) => {
+    const id = req.params.id;
+    if(!id){
+        return res.status(400).json({
+            success:false,
+            message:"Id is required",
+            user:null
+        })
+    }
+    try {
+        const currentUser = await User.findById(id);
+        return res.status(200).json({
+            success:true,
+            message:"User fetched successfully",
+            user:{
+                name:currentUser.name,
+                email:currentUser.email,
+                _id:currentUser._id
+            }
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Server error",
+            user:null
         })
     }
 }

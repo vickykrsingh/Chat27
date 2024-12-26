@@ -21,7 +21,7 @@ function Navbar() {
   return (
     <section className='h-[8vh] bg-gray-800'>
         <nav className='flex justify-between p-4 text-white'>
-            <h1>Navbar</h1>
+            {user&&<h1>{user.name}</h1>}
             <ul className='flex'>
             <Link to={'/'} className='mx-2'>Home</Link>
             {
