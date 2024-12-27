@@ -26,12 +26,10 @@ export const loginController = async (req,res) => {
             })
         }
         const token = jwt.sign({_id:existingUser._id,name:existingUser.name,email:existingUser.email},process.env.JWT_SECRET,{expiresIn:'5d'});
-        res.cookie('token',token,{
-            httpOnly:true,
-            secure:process.env.NODE_ENV==='production',
-            sameSite : 'strict', // Prevents CSRF
-            maxAge : 5*24*3600000, // 5 day
-        })
+        res.cookie('token', token, {
+            maxAge: 3600000,
+            httpOnly: true,
+        });
         return res.status(200).json({
             success:true,
             message:"Login successfully",
