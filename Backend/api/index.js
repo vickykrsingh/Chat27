@@ -17,6 +17,10 @@ app.use(cors({
 }))
 db()
 
+app.get('/',(req,res)=>{
+    res.send("hello world")
+})
+
 // routes middleware
 app.use('/api/auth',userRoutes)
 app.use('/api/message',messageRoutes)
