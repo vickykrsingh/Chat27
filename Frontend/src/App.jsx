@@ -7,7 +7,7 @@ import ForgetPassword from "./pages/auth/ForgetPassword.jsx";
 import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
-axios.defaults.baseURL = `http://localhost:8080/api`;
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
 axios.defaults.withCredentials = true;
 export default function App() {
   return (
