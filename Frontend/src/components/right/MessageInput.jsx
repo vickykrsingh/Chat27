@@ -7,26 +7,26 @@ import { MessageContext } from '../../context/MessageContext'
 
 function MessageInput() {
   const [inputMessage,setInputMessage] = useState('')
-  const {message,setMessage} = useContext(MessageContext)
+  // const {message,setMessage} = useContext(MessageContext)
   const {selectedId} = useContext(SelectedChatContext)
-  const {socket,setSocket} = useContext(SocketContext)
+  // const {socket,setSocket} = useContext(SocketContext)
   const handleSendMessage = async (e) => {
     e.preventDefault()
     try {
       const {data} = await axios.post(`/message/send/${selectedId}`,{message:inputMessage})
       if(data.success){
         setInputMessage((prev)=>prev='')
-        await socket.on('newMessage',(data)=>{
-          console.log(data)
-          setMessage([...message,data])
-          console.log(message,'total message')
-        })
+        // await socket.on('newMessage',(data)=>{
+        //   console.log(data)
+        //   setMessage([...message,data])
+        //   console.log(message,'total message')
+        // })
         // socket.on('newMessageSender',(data)=>{
         //   console.log(data)
         //   setMessage(prev=>prev=[...message,data])
         //   console.log(message,'total message')
         // })
-        return ()=>socket.close()
+        // return ()=>socket.close()
       }else{
         toast.error("Please try again")
       }

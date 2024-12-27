@@ -4,12 +4,22 @@ import {AuthContext} from '../../context/AuthContext.jsx'
 import moment from 'moment'
 import { SelectedChatContext } from "../../context/SelectedChat.jsx";
 import { MessageContext } from "../../context/MessageContext.jsx";
+import { SocketContext } from "../../context/SocketContext.jsx";
 function ChatBox() {
-  // const [message, setMessage] = useState([]);
   const {message,setMessage} = useContext(MessageContext)
   const [showDate,setShowDate] = useState(false)
   const {user} = useContext(AuthContext)
   const {selectedChat} = useContext(SelectedChatContext)
+  const {socket,setSocket} = useContext(SocketContext)
+
+  useEffect(()=>{
+    if(socket){
+      socket.on('newMessage',(data)=>{
+        console.log(data)
+        setMessage([...message,data])
+      })
+    }
+  },[socket,setSocket,message])
   
   return (
     <section className="h-[75vh] bg-slate-800 py-2 px-1 overflow-y-scroll">
