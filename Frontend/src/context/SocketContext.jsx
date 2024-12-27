@@ -10,7 +10,7 @@ const SocketProvider  = ({children}) => {
     const [onlineUsers,setOnlineUsers] = useState([])
     useEffect(()=>{
         if(user){
-            const socket = io("http://localhost:8080",{
+            const socket = io(import.meta.env.VITE_SOCKETIO_SERVER_URL,{
                 query:{
                     userId : user._id
                 }
