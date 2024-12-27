@@ -7,9 +7,8 @@ const app = express()
 const server = http.createServer(app)
 const io = new Server(server,{
     cors:{
-        origin:process.env.CLIENT_URL,
+        origin:[process.env.CLIENT_URL,'http://chat027-server.vercel.app'],
         credentials:true,
-        methods:['GET','POST','PUT','DELETE']
     }
 })
 const users = {}
