@@ -27,9 +27,9 @@ export const loginController = async (req,res) => {
         }
         const token = jwt.sign({_id:existingUser._id,name:existingUser.name,email:existingUser.email},process.env.JWT_SECRET,{expiresIn:'5d'});
         res.cookie('token', token, {
+            maxAge:86400000,
             httpOnly: true,
             secure:process.env.NODE_ENV==='production',
-            sameSite:'none'
         });
         return res.status(200).json({
             success:true,
