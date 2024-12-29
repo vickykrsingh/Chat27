@@ -27,10 +27,10 @@ export const loginController = async (req,res) => {
         }
         const token = jwt.sign({_id:existingUser._id,name:existingUser.name,email:existingUser.email},process.env.JWT_SECRET,{expiresIn:'5d'});
         res.cookie('token', token, {
-            maxAge:86400000,
+            maxAge: 86400000, // 1 day
             httpOnly: true,
-            secure:process.env.NODE_ENV==='production',
-            sameSite:'None'
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS only in production
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // 'None' for cross-origin, 'Lax' for same-origin
         });
         return res.status(200).json({
             success:true,
