@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {AuthContext} from '../../context/AuthContext.jsx'
 import moment from 'moment'
@@ -11,14 +10,11 @@ function ChatBox() {
   const {user} = useContext(AuthContext)
   const {selectedChat} = useContext(SelectedChatContext)
   const {socket,setSocket} = useContext(SocketContext)
-  const audio = new Audio('/noti.mp3')
   useEffect(()=>{
     if(socket){
       socket.on('newMessage',(data)=>{
-        console.log(data)
         setMessage([...message,data])
       })
-      audio.play()
     }
   },[socket,setSocket,message])
 

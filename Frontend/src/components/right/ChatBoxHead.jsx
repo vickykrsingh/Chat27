@@ -3,7 +3,7 @@ import { SocketContext } from '../../context/SocketContext.jsx'
 import { SelectedChatContext } from '../../context/SelectedChat.jsx';
 
 function ChatBoxHead() {
-  const {socket,onlineUsers} = useContext(SocketContext)
+  const {onlineUsers} = useContext(SocketContext)
   const {selectedChat,selectedId} = useContext(SelectedChatContext)
   const isOnline = onlineUsers.includes(selectedId);
   return (
