@@ -30,6 +30,7 @@ export const loginController = async (req,res) => {
             maxAge: 3600000,
             httpOnly: true,
             // secure:process.env.NODE_ENV==='production'
+            // secure:false
         });
         return res.status(200).json({
             success:true,
