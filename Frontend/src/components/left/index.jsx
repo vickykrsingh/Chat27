@@ -28,7 +28,7 @@ function Left() {
     if(user){
       getAllUsers()
     }
-  },[])
+  },[user])
   return (
     <section className='w-[30%] h-[92vh] bg-slate-900 text-gray-100'>
       <Search/>

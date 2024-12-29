@@ -4,7 +4,7 @@ import { SocketContext } from '../../context/SocketContext.jsx'
 import { SelectedChatContext } from '../../context/SelectedChat.jsx'
 
 function Users({user}) {
-  const {selectedChat,selectedId} = useContext(SelectedChatContext)
+  const {selectedId} = useContext(SelectedChatContext)
   const {onlineUsers} = useContext(SocketContext);
   const isOnline = onlineUsers.includes(user._id)
   return (
